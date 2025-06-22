@@ -1,0 +1,233 @@
+# version: "3.8"
+
+# services:
+#   # PostgreSQL Database
+#   postgres:
+#     image: postgres:15
+#     container_name: resume_postgres
+#     environment:
+#       POSTGRES_DB: resume_analysis
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: habtesh01
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     ports:
+#       - "5433:5432"
+#     networks:
+#       - resume_network
+
+#   # n8n Service
+#   n8n:
+#     image: n8nio/n8n:latest
+#     container_name: resume_n8n
+#     environment:
+#       - N8N_BASIC_AUTH_ACTIVE=true
+#       - N8N_BASIC_AUTH_USER=admin
+#       - N8N_BASIC_AUTH_PASSWORD=admin123
+#       - DB_TYPE=postgresdb
+#       - DB_POSTGRESDB_HOST=postgres
+#       - DB_POSTGRESDB_PORT=5432
+#       - DB_POSTGRESDB_DATABASE=resume_analysis
+#       - DB_POSTGRESDB_USER=postgres
+#       - DB_POSTGRESDB_PASSWORD=habtesh01
+#       - N8N_ENCRYPTION_KEY=your-encryption-key-here
+#       - WEBHOOK_URL=http://localhost:5678
+#       - GENERIC_TIMEZONE=UTC
+#     volumes:
+#       - n8n_data:/home/node/.n8n
+#       - ./n8n/workflows:/home/node/.n8n/workflows
+#     ports:
+#       - "5678:5678"
+#     depends_on:
+#       - postgres
+#     networks:
+#       - resume_network
+
+#   # Your Backend Service
+#   backend:
+#     # build: ./Backend
+#     build:
+#       context: .
+#       dockerfile: Backend/Dockerfile
+#     container_name: resume_backend
+#     environment:
+#       - NODE_ENV=production
+#       - N8N_WEBHOOK_URL=http://n8n:5678/webhook-test/resume_analyze
+#       - DATABASE_URL=postgresql://postgres:habtesh01@postgres:5432/resume_analysis
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - postgres
+#       - n8n
+#     networks:
+#       - resume_network
+
+#   # Optional: pgAdmin for database management
+#   pgadmin:
+#     image: dpage/pgadmin4:latest
+#     container_name: resume_pgadmin
+#     environment:
+#       PGADMIN_DEFAULT_EMAIL: admin@admin.com
+#       PGADMIN_DEFAULT_PASSWORD: admin123
+#     ports:
+#       - "5050:80"
+#     depends_on:
+#       - postgres
+#     networks:
+#       - resume_network
+
+# volumes:
+#   postgres_data:
+#   n8n_data:
+
+# networks:
+#   resume_network:
+#     driver: bridge
+# //////////////////////////////////////
+# version: "3.8"
+
+# services:
+#   postgres:
+#     image: postgres:15
+#     environment:
+#       POSTGRES_DB: resume_analysis
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: habtemariam
+#     ports:
+#       - "5432:5432" # Optional: only needed if you want to access Postgres from your host
+#     # volumes:
+#     #   - postgres_data:/var/lib/postgresql/data
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+#   n8n:
+#     image: n8nio/n8n
+#     environment:
+#       - DB_TYPE=postgresdb
+#       - DB_POSTGRESDB_HOST=postgres
+#       - DB_POSTGRESDB_PORT=5432
+#       - DB_POSTGRESDB_DATABASE=resume_analysis
+#       - DB_POSTGRESDB_USER=postgres
+#       - DB_POSTGRESDB_PASSWORD=habtemariam
+#     depends_on:
+#       - postgres
+#     ports:
+#       - "5678:5678"
+
+#   backend:
+#     build:
+#       context: .
+#       dockerfile: Backend/Dockerfile
+#     environment:
+#       - DATABASE_URL=postgresql://postgres:password123@postgres:5432/resume_analysis
+#     # depends_on:
+#     #   - postgres
+#     depends_on:
+#       - postgres
+#       - n8n
+#     ports:
+#       - "3000:3000"
+#     networks:
+#       - resume_network
+#   pgadmin:
+#     image: dpage/pgadmin4:latest
+#     container_name: resume_pgadmin
+#     environment:
+#       PGADMIN_DEFAULT_EMAIL: admin@admin.com
+#       PGADMIN_DEFAULT_PASSWORD: admin123
+#     ports:
+#       - "5050:80"
+#     depends_on:
+#       - postgres
+#     networks:
+#       - resume_network
+
+# volumes:
+#   postgres_data:
+# //////////////////////////////////////
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: resume_postgres
+    environment:
+      POSTGRES_DB: resume_analysis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: habtemariam
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - resume_network
+
+  # n8n Service
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: resume_n8n
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin123
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=resume_analysis
+      - DB_POSTGRESDB_USER=postgres
+      - DB_POSTGRESDB_PASSWORD=habtemariam
+      - N8N_ENCRYPTION_KEY=n8n-resume-analysis-using-login-and-register
+      - WEBHOOK_URL=http://localhost:5678
+      - GENERIC_TIMEZONE=UTC
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/home/node/.n8n/workflows
+    ports:
+      - "5678:5678"
+    depends_on:
+      - postgres
+    networks:
+      - resume_network
+
+  # Your Backend Service
+  backend:
+    build:
+      context: .
+      dockerfile: Backend/Dockerfile
+    container_name: resume_backend
+    environment:
+      # - NODE_ENV=production
+      # - N8N_WEBHOOK_URL=http://n8n:5678/webhook-test/resume_analyze
+      # - DATABASE_URL=postgresql://postgres:habtemariam@postgres:5432/resume_analyzer
+      - DATABASE_URL=postgresql://postgres:habtemariam@postgres:5432/resume_analysis
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - n8n
+    networks:
+      - resume_network
+
+  # Optional: pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: resume_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - resume_network
+
+volumes:
+  postgres_data:
+  n8n_data:
+
+networks:
+  resume_network:
+    driver: bridge
