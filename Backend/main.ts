@@ -7,9 +7,6 @@ const PORT = process.env.PORT || 3000;
 
 configDotenv();
 app.use(express.json());
-app.get("/", (req: Request, res: Response) => {
-  res.send("hello");
-});
 initialize();
 app.use("/api", router);
 app.listen(PORT, () => {
