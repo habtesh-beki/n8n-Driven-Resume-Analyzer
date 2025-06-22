@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 configDotenv();
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
-console.log(JWT_SECRET);
 export const signToken = async (id: string) => {
   const token = jwt.sign({ id }, JSON.stringify(JWT_SECRET), {
     expiresIn: 60 * 60 * 60,
