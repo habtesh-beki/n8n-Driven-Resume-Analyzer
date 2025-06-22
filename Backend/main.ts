@@ -1,13 +1,15 @@
-import express, { Application } from "express";
-import router from "./routes/routes";
+import express, { Application, Request, Response } from "express";
+import router from "./routes/routes.js";
 import { configDotenv } from "dotenv";
-import { initialize } from "./Intialize";
+import { initialize } from "./Intialize.js";
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
 configDotenv();
 app.use(express.json());
-
+app.get("/", (req: Request, res: Response) => {
+  res.send("hello");
+});
 initialize();
 app.use("/api", router);
 app.listen(PORT, () => {
