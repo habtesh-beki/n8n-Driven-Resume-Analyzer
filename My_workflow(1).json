@@ -1,0 +1,271 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/resume_analyze",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1000,
+        0
+      ],
+      "id": "8e0ca8e5-5954-4553-8a18-f4282dd9d975",
+      "name": "Webhook",
+      "webhookId": "f00f3318-b134-4b83-9944-203b813879ae"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "file",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -780,
+        0
+      ],
+      "id": "03c79c0a-e2fd-4f19-81bb-97224dc9c676",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an intelligent resume parser. Analyze the following resume and extract these fields:\n\n- Full Name\n- Email Address\n- Phone Number\n- Skills (as a list)\n- Total Years of Experience\n- Last Job Title\n\nReturn the result in the following JSON format:\n{\n  \"full_name\": \"\",\n  \"email\": \"\",\n  \"phone\": \"\",\n  \"skills\": [],\n  \"experience_years\": 0,\n  \"last_job_title\": \"\"\n}\n\nResume Text:\n\"\"\"\n{{ $json[\"text\"] }}\n\"\"\"\n"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -560,
+        0
+      ],
+      "id": "1f15cb66-b0c3-4f56-ac6b-c24923803ea3",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "i3AXVH6mdTu1wBMp",
+          "name": "OpenAi account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const content = items[0].json.message.content;\n\nreturn [\n  {\n    json: {\n      filename: $json.filename || '', // If you have the filename from earlier\n      full_name: content.full_name,\n      email: content.email,\n      phone: content.phone,\n      skills: content.skills, // This is an array\n      experience_years: content.experience_years,\n      last_job_title: content.last_job_title\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        0
+      ],
+      "id": "fa011228-0f1f-4869-8346-8d590915319f",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "resumes",
+          "mode": "list",
+          "cachedResultName": "resumes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "experience_years": "={{ $json.experience_years }}",
+            "filename": "= {{ $json.filename }}",
+            "full_name": "={{ $json.full_name }}",
+            "email": "={{ $json.email }}",
+            "phone": "={{ $json.phone }}",
+            "skills": "={{ $json.skills }}",
+            "last_job_title": "={{ $json.last_job_title }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "filename",
+              "displayName": "filename",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "full_name",
+              "displayName": "full_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "experience_years",
+              "displayName": "experience_years",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "last_job_title",
+              "displayName": "last_job_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "uploaded_at",
+              "displayName": "uploaded_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        100,
+        0
+      ],
+      "id": "b244043a-9deb-4caa-9808-c17b4ebc874e",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "mTUwNh71XnIo3svk",
+          "name": "Postgres account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "39efc301-b98d-4e8d-9372-835264414287",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c4600259f3e3c403d1599ca3c399097178c7c1605dc22948c377f59c81980040"
+  },
+  "id": "ArxrBOIhxZAHLn16",
+  "tags": []
+}

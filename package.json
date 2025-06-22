@@ -1,10 +1,14 @@
 {
   "name": "n8n-Driven Resume Analyzer",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
+  "description": "Backend service for the resume analyzer",
+  "main": "dist/Backend/main.js",
   "scripts": {
-    "dev": "nodemon ./Backend/main.ts"
+    "dev": "nodemon --watch 'Backend/**/*.ts' --exec 'node --loader ts-node/esm' Backend/main.ts",
+    "build": "tsc",
+    "start": "node dist/Backend/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
