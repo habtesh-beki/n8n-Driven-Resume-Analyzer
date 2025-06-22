@@ -1,6 +1,6 @@
-import { AppDataSource } from "../../datasource";
-import { hashPassword } from "../../services/hash.service";
-import { User } from "../schema/user.schema";
+import { AppDataSource } from "../../datasource.js";
+import { hashPassword } from "../../services/hash.service.js";
+import { User } from "../schema/user.schema.js";
 
 const userRepository = AppDataSource.getRepository(User);
 interface Iuser {
