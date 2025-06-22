@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
+import { configDotenv } from "dotenv";
 import FormData from "form-data";
 import fs from "fs";
 import axios from "axios";
 import path from "path";
+configDotenv();
 
+const n8nWebhookUrl =
+  process.env.N8N_WEBHOOK_URL ||
+  "http://localhost:5678/webhook-test/resume_analyze";
 export const uploadResume = async (req: Request, res: Response) => {
   const file = req.file;
 
@@ -21,9 +26,8 @@ export const uploadResume = async (req: Request, res: Response) => {
       contentType: file.mimetype,
     });
     form.append("originalName", file.originalname);
-
     const response = await axios.post(
-      "http://localhost:5678/webhook-test/resume_analyze",
+      "http://n8n:5678/webhook-test/resume_analyze",
       form,
       {
         headers: form.getHeaders(),
