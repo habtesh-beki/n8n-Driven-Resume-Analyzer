@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from "express";
-import { findOne } from "../DB/repositories/user.repositories";
-import { verifyToken } from "../utils/jwt";
+import { findOne } from "../DB/repositories/user.repositories.js";
+import { verifyToken } from "../utils/jwt.js";
 
 export const authenticateJWT = async (
   req: Request,
