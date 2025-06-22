@@ -1,15 +1,17 @@
 import { AppDataSource } from "../../datasource.js";
 import { hashPassword } from "../../services/hash.service.js";
-import { User } from "../schema/user.schema.js";
+import { UserTable } from "../schema/user.schema.js";
 
-const userRepository = AppDataSource.getRepository(User);
+const userRepository = AppDataSource.getRepository(UserTable);
 interface Iuser {
   first_name: string;
   email: string;
   password: string;
 }
 
-export const create = async (data: User): Promise<User | null | undefined> => {
+export const create = async (
+  data: UserTable
+): Promise<UserTable | null | undefined> => {
   const hashedPassword = await hashPassword(data.password);
   const newData = {
     first_name: data.first_name,
