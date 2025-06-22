@@ -1,12 +1,17 @@
-import { configDotenv } from "dotenv";
 import jwt from "jsonwebtoken";
-configDotenv();
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
+const JWT_SECRET = process.env.POSTGRES_DB as string;
+
 export const signToken = async (id: string) => {
-  const token = jwt.sign({ id }, JSON.stringify(JWT_SECRET), {
-    expiresIn: 60 * 60 * 60,
-  });
+  console.log(JWT_SECRET);
+  const token = jwt.sign(
+    { id },
+    "n8n-driven-resume-analyzer-secure-and-ai-driven",
+    // JWT_SECRET,
+    {
+      expiresIn: 60 * 60 * 60,
+    }
+  );
   return token;
 };
 
