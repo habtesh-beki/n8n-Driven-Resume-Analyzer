@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { AppError } from "../utils/AppError";
-import { findOne } from "../DB/repositories/user.repositories";
-import { verifyPassword } from "../services/hash.service";
-import { signToken } from "../utils/jwt";
-import { create } from "../DB/repositories/user.repositories";
-import { responseWithSuccess } from "../utils/AppResponse";
+import { AppError } from "../utils/AppError.js";
+import { findOne } from "../DB/repositories/user.repositories.js";
+import { verifyPassword } from "../services/hash.service.js";
+import { signToken } from "../utils/jwt.js";
+import { create } from "../DB/repositories/user.repositories.js";
+import { responseWithSuccess } from "../utils/AppResponse.js";
 
 type Iuser = {
   first_name: string;
