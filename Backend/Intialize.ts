@@ -1,4 +1,4 @@
-import { AppDataSource } from "./datasource";
+import { AppDataSource } from "./datasource.js";
 
 export const initialize = async () => {
   try {
