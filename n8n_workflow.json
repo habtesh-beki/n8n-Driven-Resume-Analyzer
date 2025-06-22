@@ -10,10 +10,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -1000,
+        0,
         0
       ],
-      "id": "8e0ca8e5-5954-4553-8a18-f4282dd9d975",
+      "id": "b1a4bee5-f550-4fcd-98c6-111bbb12e278",
       "name": "Webhook",
       "webhookId": "f00f3318-b134-4b83-9944-203b813879ae"
     },
@@ -26,10 +26,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        -780,
+        220,
         0
       ],
-      "id": "03c79c0a-e2fd-4f19-81bb-97224dc9c676",
+      "id": "6a4e9709-58a1-4b54-8fc9-f50492e4d29d",
       "name": "Extract from File"
     },
     {
@@ -53,15 +53,15 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        -560,
+        440,
         0
       ],
-      "id": "1f15cb66-b0c3-4f56-ac6b-c24923803ea3",
+      "id": "eff4549f-a16f-4212-8c55-e244e57324b4",
       "name": "OpenAI",
       "credentials": {
         "openAiApi": {
-          "id": "i3AXVH6mdTu1wBMp",
-          "name": "OpenAi account 3"
+          "id": "c6rqHguBVnnJ8Dax",
+          "name": "OpenAi account"
         }
       }
     },
@@ -72,10 +72,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -200,
+        800,
         0
       ],
-      "id": "fa011228-0f1f-4869-8346-8d590915319f",
+      "id": "267d4390-e0df-45fa-930d-c6ae06f5c5e2",
       "name": "Code"
     },
     {
@@ -197,14 +197,14 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        100,
+        1100,
         0
       ],
-      "id": "b244043a-9deb-4caa-9808-c17b4ebc874e",
+      "id": "b933c015-aebd-4905-a9f6-2b1b48a86f1c",
       "name": "Postgres",
       "credentials": {
         "postgres": {
-          "id": "mTUwNh71XnIo3svk",
+          "id": "Lu6bL9QWqiT9xcwc",
           "name": "Postgres account"
         }
       }
@@ -261,11 +261,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "39efc301-b98d-4e8d-9372-835264414287",
+  "versionId": "10de7181-9f52-4933-a638-2c5e646259dd",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "c4600259f3e3c403d1599ca3c399097178c7c1605dc22948c377f59c81980040"
+    "instanceId": "6e556c81b753a17fa0a7fea4753b4b8d79b0e8a7296f39343bf8009d47c6eda7"
   },
-  "id": "ArxrBOIhxZAHLn16",
+  "id": "nPiOqs4OeJc4gqTd",
   "tags": []
 }
