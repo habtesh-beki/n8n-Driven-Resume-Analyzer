@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class User {
+export class UserTable {
   @PrimaryGeneratedColumn()
-  id!: string;
+  id!: number;
 
   @Column()
   first_name!: string;
