@@ -13,15 +13,15 @@ export const authenticateJWT = async (
     return;
   }
   const decoded = verifyToken(token);
+
   if (!decoded) {
     res.status(401).json({ message: "Invalid token" });
     return;
   }
 
   try {
-    const email = decoded;
+    const email = decoded.id;
     const user = await findOne(email);
-    console.log(user);
     if (!user) {
       res.status(404).json({
         message: "user not found",
