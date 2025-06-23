@@ -85,7 +85,6 @@ A fullstack, containerized resume analysis system using Node.js, n8n, OpenAI, an
 - Extracts text from PDF
 - Sends text to OpenAI for parsing (extracts name, email, phone, skills, etc.)
 - Stores structured data in PostgreSQL
-- (Optionally) Notifies via Slack, Google Sheets, etc.
 
 ---
 
