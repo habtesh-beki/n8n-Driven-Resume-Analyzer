@@ -7,8 +7,7 @@ import path from "path";
 configDotenv();
 
 const n8nWebhookUrl =
-  process.env.N8N_WEBHOOK_URL ||
-  "http://localhost:5678/webhook-test/resume_analyze";
+  process.env.N8N_WEBHOOK_URL || "http://n8n:5678/webhook-test/resume_analyze";
 export const uploadResume = async (req: Request, res: Response) => {
   const file = req.file;
 
@@ -26,13 +25,9 @@ export const uploadResume = async (req: Request, res: Response) => {
       contentType: file.mimetype,
     });
     form.append("originalName", file.originalname);
-    const response = await axios.post(
-      "http://n8n:5678/webhook-test/resume_analyze",
-      form,
-      {
-        headers: form.getHeaders(),
-      }
-    );
+    const response = await axios.post(n8nWebhookUrl, form, {
+      headers: form.getHeaders(),
+    });
 
     res.json({
       message: "File uploaded and sent to n8n",
