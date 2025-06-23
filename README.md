@@ -1,6 +1,6 @@
 # n8n-Driven Resume Analyzer (Secure & AI-Powered)
 
-A fullstack, containerized resume analysis system using Node.js, n8n, OpenAI, and PostgreSQL—all orchestrated with Docker Compose.
+Containerized resume analysis system using Node.js, n8n, OpenAI, and PostgreSQL—all orchestrated with Docker Compose.
 
 ---
 
