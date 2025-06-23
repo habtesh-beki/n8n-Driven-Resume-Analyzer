@@ -49,11 +49,10 @@ services:
     build:
       context: .
       dockerfile: Backend/Dockerfile
+    env_file:
+      - Backend/.env
     container_name: resume_backend
     environment:
-      # - NODE_ENV=production
-      # - N8N_WEBHOOK_URL=http://n8n:5678/webhook-test/resume_analyze
-      # - DATABASE_URL=postgresql://postgres:habtemariam@postgres:5432/resume_analyzer
       - DATABASE_URL=postgresql://postgres:habtemariam@postgres:5432/resume_analysis
     ports:
       - "3000:3000"
