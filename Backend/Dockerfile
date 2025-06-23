@@ -1,26 +1,26 @@
-# Use official Node.js 18 image
+# official Node.js 18 image
 FROM node:18-alpine
 
-# Install pnpm globally
+
 RUN npm install -g pnpm
 
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy config and manifest files for better caching
+# Copy config and manifest files I use this because for better catching
 COPY package.json pnpm-lock.yaml tsconfig.json ./
 
-# Install dependencies
+# install dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy backend source code
 COPY Backend/ ./Backend/
 
-# Build TypeScript code
+# Build TypeScript code to create dist file
 RUN pnpm build
 
-# Expose the backend port
+
 EXPOSE 3000
 
-# Start the compiled app
+# Start the  app
 CMD ["pnpm", "start"]
